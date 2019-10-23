@@ -1,1 +1,15 @@
-/*met le styles.css ici*/
+h1 {
+  color:#f5f6fa;
+  font-family: 'Open Sans';
+  text-align: center;
+  user-select: none;
+}
+
+.btn-styles {
+  background-color: #e1b12c;
+  border: 0px;
+  border-radius: 10px;
+  color: f5f6fa;
+  padding: 15px 30px;
+  font-family: 'Open Sans';
+}
