@@ -61,7 +61,7 @@ h1 {
   text-align: center;
   user-select: none;
 }
-
+section {display: block;margin:0 auto;}
 section, .btn-styles {
   margin:10px;
 }
@@ -75,4 +75,14 @@ section, .btn-styles {
   font-weight:bold;
   font-size: 15px;
       width: 200;
+
+}
+.txtbox {
+    color: #e1b12c;
+    text-decoration: none;
+    text-align: center;
+    background-color: #2f3640;
+    border: 0;
+    font-size: 15px;
+    margin-top: 20px;
 }
