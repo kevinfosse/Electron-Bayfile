@@ -6,12 +6,23 @@ const ejse = require('ejs-electron');
 let frame;
 
 app.on("ready", () => {
-  frame = new BrowserWindow({
-    width: 900,
-    height: 300,
-    frame: false,
-    backgroundColor: '#2f3640'
-  });
+  if(process.platform === "darwin"){
+    frame = new BrowserWindow({
+      width: 900,
+      height: 300,
+      frame: true,
+      titleBarStyle: "hiddenInset",
+      backgroundColor: '#2f3640',
+      maximizable: false
+    });
+  } else {
+    frame = new BrowserWindow({
+      width: 900,
+      height: 300,
+      frame: false,
+      backgroundColor: '#2f3640'
+    });
+  }
 
   frame.loadURL(url.format({
     pathname: path.join(__dirname, 'app', 'app.ejs'),
