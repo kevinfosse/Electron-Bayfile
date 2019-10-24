@@ -36,8 +36,6 @@ app.on("ready", () => {
     slashes: true
   }));
 
-  frame.webContents.openDevTools({mode: "detach"})
-
   frame.setMenu(null);
   frame.setResizable(false);
 
