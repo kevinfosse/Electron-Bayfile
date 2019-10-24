@@ -77,8 +77,7 @@ section, .btn-styles {
   max-width:25ch;
   overflow:hidden;
   text-overflow: ellipsis;
-      width: 200;
-
+  width: 200;
 }
 .txtbox {
     color: #e1b12c;
@@ -88,6 +87,9 @@ section, .btn-styles {
     border: 0;
     font-size: 15px;
     margin-top: 20px;
+}
+.txtbox:hover {
+  cursor: pointer;
 }
 
 input {outline:none;}

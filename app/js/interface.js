@@ -1,13 +1,13 @@
 const $ = require('jquery');
-const {remote, shell, webFrame} = require('electron');
+const {remote, clipboard} = require('electron');
 const {dialog} = remote;
 const fs = require('fs');
 const {exec} = require('child_process');
 const platformFolders = require("platform-folders");
 const path = require('path');
 let file = null;
-let isupload = false;
 let isuploading = false;
+let url;
 
 $(function() {
   console.log('JQuery Initialized.');
@@ -41,11 +41,12 @@ function app() {
     } else {
       file = file[0];
       isupload = false;
+      document.getElementById("linkafterupload").setAttribute("style", "visibility: hidden;");
       document.getElementById("select").setAttribute("value", path.basename(file));
     }
   });
   $("#upload").click(async function() {
-    if(file === null) return document.getElementById("select").setAttribute("value", path.basename(file));
+    if(file === null) return document.getElementById("select").setAttribute("value", "Please select a file !");
     isuploading = true;
     document.getElementById("progress").setAttribute("style", "visibility: visible;");
     console.log("req")
@@ -54,9 +55,10 @@ function app() {
       data = JSON.parse(data);
       zeropass = false;
       isuploading = false;
-      isupload = true;
       if(data.error) throw err;
-      document.getElementById("linkafterupload").setAttribute("value", data.data.file.url.full);
+      url = data.data.file.url.short;
+      document.getElementById("linkafterupload").setAttribute("style", "visibility: visible;");
+      document.getElementById("linkafterupload").setAttribute("value", url);
       document.getElementById("progress").setAttribute("style", "visibility: hidden;");
       document.getElementById("upload").setAttribute("value", "Upload");
       document.getElementById("progress").setAttribute("value", 0);
@@ -72,8 +74,13 @@ function app() {
       }
     });
   });
-  $("#copy").click(function() {
-
+  $("#linkafterupload").click(function() {
+    console.log('click');
+    clipboard.writeText(url);
+    document.getElementById("linkafterupload").setAttribute("value", "Copied !");
+    setTimeout(() => {
+      document.getElementById("linkafterupload").setAttribute("value", url);
+    }, 2500)
   })
 }
 
