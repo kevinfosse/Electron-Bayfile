@@ -9,20 +9,20 @@
   <body>
     <% include frame.ejs %>
     <header><h1>BayFiles</h1></header>
-
     <center>
       <section>
-<div id="button">
-  <input class="btn-styles" type="button" value="Select File">
-  <input class="btn-styles" type="button" value="Upload">
-</div>
-<div id="get">
-<input type="text" class="txtbox" id="link" name="linkafterupload" required
-       maxlength="100" size="100" value="Lien apres upload">
-       <br>
-       <input type="button" value="Copy" style="background:none;border:none;color: #e1b12c;    font-size: 15px;">
-</div>
-  </section>
-</center>
+        <div id="button">
+          <input class="btn-styles" type="button" value="Select File" id="select">
+          <input class="btn-styles" type="button" value="Upload" id="upload">
+        </div>
+        <div id="get">
+        <input type="text" class="txtbox" id="linkafterupload" name="linkafterupload" required
+               maxlength="100" size="100" value="" disabled>
+               <br>
+               <input type="button" value="Copy" style="background:none;border:none;color: #e1b12c;    font-size: 15px;" id="copy">
+        </div>
+      </section>
+    </center>
+    <progress class="progress" id="progress" max="100" value="0" style="visibility: hidden;"></progress>
   </body>
 </html>

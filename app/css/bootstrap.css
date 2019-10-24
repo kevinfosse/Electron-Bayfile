@@ -74,6 +74,8 @@ section, .btn-styles {
   font-family: 'Open Sans';
   font-weight:bold;
   font-size: 15px;
+  max-width:25ch;
+  overflow:hidden;
       width: 200;
 
 }
@@ -89,3 +91,17 @@ section, .btn-styles {
 
 input {outline:none;}
 #get {display:inline-grid;margin-top:10px;}
+
+.progress {
+  color: #2f3640;
+  width: 100%;
+  height: 5px;
+  background-color: #2f3640;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+progress::-webkit-progress-value {
+  background-color: #e1b12c;
+}

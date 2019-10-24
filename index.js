@@ -11,6 +11,9 @@ app.on("ready", () => {
       width: 900,
       height: 300,
       frame: true,
+      webPreferences: {
+          nodeIntegration: true
+      },
       titleBarStyle: "hiddenInset",
       backgroundColor: '#2f3640',
       maximizable: false
@@ -20,6 +23,9 @@ app.on("ready", () => {
       width: 900,
       height: 300,
       frame: false,
+      webPreferences: {
+          nodeIntegration: true
+      },
       backgroundColor: '#2f3640'
     });
   }
