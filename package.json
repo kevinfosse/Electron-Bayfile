@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "dist:win": "npm run dist -- WINDOWS",
-    "dist:mac": "npm run dist -- MAC",
-    "dist:linux": "npm run dist -- LINUX"
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux",
+    "dist:darwin": "electron-builder --mac",
   },
   "author": "",
   "license": "MIT",
