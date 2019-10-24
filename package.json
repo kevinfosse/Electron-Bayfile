@@ -7,7 +7,7 @@
     "start": "electron .",
     "dist:win": "electron-builder --win",
     "dist:linux": "electron-builder --linux",
-    "dist:darwin": "electron-builder --mac",
+    "dist:darwin": "electron-builder --mac"
   },
   "author": "",
   "license": "MIT",
