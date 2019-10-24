@@ -17,7 +17,6 @@ $(function() {
 function init() {
   frame();
   app();
-  $("#select").fitText(5.5);
 }
 
 function frame() {
