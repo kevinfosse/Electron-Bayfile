@@ -1,6 +1,7 @@
 <div class="frame-bar">
   <div class="frame-resizable"></div>
   <div class="frame-content">
+    <div class="frame-drag"></div>
     <% if(process.platform !== 'darwin') { %>
       <div class="content-win-button">
         <button class="frame-button" id="frame-button-minimize" tabIndex="-1">
@@ -11,6 +12,5 @@
         </button>
       </div>
     <% } %>
-    <div class="frame-drag"></div>
   </div>
 </div>
