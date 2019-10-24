@@ -76,6 +76,7 @@ section, .btn-styles {
   font-size: 15px;
   max-width:25ch;
   overflow:hidden;
+  text-overflow: ellipsis;
       width: 200;
 
 }
