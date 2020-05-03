@@ -40,7 +40,7 @@ function app() {
       file = null;
     } else {
       file = file[0];
-      isupload = false;
+      isuploading = false;
       document.getElementById("linkafterupload").setAttribute("style", "visibility: hidden;");
       document.getElementById("select").setAttribute("value", path.basename(file));
     }
@@ -50,95 +50,35 @@ function app() {
     isuploading = true;
     document.getElementById("progress").setAttribute("style", "visibility: visible;");
     console.log("req");
-    /*console.log(path.join(__dirname, "bin", `curl${(process.platform === "win32") ? ".exe" : ""}`))
-    let child = exec(`"${path.join(__dirname, "bin", `curl${(process.platform === "win32") ? ".exe" : ""}`)}" -# -F "file=@${file}" https://api.bayfiles.com/upload`);
-    child.stdout.on("data", data => {
-      data = JSON.parse(data);
-      zeropass = false;
-      isuploading = false;
-      if(data.error) throw err;
-      url = data.data.file.url.short;
-      document.getElementById("linkafterupload").setAttribute("style", "visibility: visible;");
-      document.getElementById("linkafterupload").setAttribute("value", url);
-      document.getElementById("progress").setAttribute("style", "visibility: hidden;");
-      document.getElementById("upload").setAttribute("value", "Upload");
-      document.getElementById("progress").setAttribute("value", 0);
-    });
-    let pourcent = 0;
-    child.stderr.on("data", data => {
-      var pourcen = parseFloat(data.split("%")[0].split(" ").slice(-1)[0].replace(",", "."));
-      if(isNaN(pourcen)) return;
-      if(pourcen >= pourcent){
-        pourcent = pourcen;
-        document.getElementById("upload").setAttribute("value", pourcent + "%");
-        document.getElementById("progress").setAttribute("value", pourcent);
-      }
-    });*/
 
     function genBoundary() {
-      var boundary = '------------------------';
+      var boundary = '--------------------------';
       for (var i = 0; i < 16; i++) {
         boundary += Math.floor(Math.random() * 10).toString(16);
       }
       return boundary;
     }
 
-    const fs = require('fs')
-    //const util = require('util')
-    const HttpsProxyAgent = require('https-proxy-agent');
+    const fs = require('fs');
     const axios = require('axios');
-    const FormData = require('form-data');
-    const fetch = require("node-fech");
-    const Progress = require('node-fetch-progress');
 
     const fileStream = fs.createReadStream(file);
-    const fileStats = fs.statSync(file);
-    const fileLength = fileStats.size;
-    const form = new FormData()
-    form.append('file', fileStream, { knownLength: fileLength });
-
-    /*axios.post('https://api.bayfiles.com/upload', form, {
-      headers: form.getHeaders(),
-      proxy: {
-        host: '127.0.0.1',
-        port: 8888
+    let boundary = genBoundary();
+    axios.request({
+      method: "post",
+      url: "https://bayfiles.com/api/upload",
+      data: `--------------------------65b951bd86ed119f\nContent-Disposition: form-data; name="file"; filename="${path.basename(file)}"\nContent-Type: application/octet-stream\n\n${fs.readFileSync(file,"utf8")}\n\n--------------------------65b951bd86ed119f`,
+      headers:{"Content-Type":'multipart/form-data; boundary=------------------------65b951bd86ed119f'},
+      onUploadProgress: (p) => {
+        document.getElementById("progress").setAttribute("value", p.loaded/p.total);
       }
-    }).then(result => {
-      console.log(result);
-    });
-
-    /*var xhr = new XMLHttpRequest();
-    xhr.open('POST', "https://api.bayfiles.com/upload", true);
-    xhr.upload.addEventListener("progress", function(evt) {
-      if (evt.lengthComputable) {
-        var percentComplete = evt.loaded / evt.total;
-        percentComplete = parseInt(percentComplete * 100);
-        console.log(percentComplete);
-
-        if (percentComplete === 100) {
-          console.log(evt)
-        }
-
-      }
-    }, false);
-    xhr.onload = function () {
-      console.log(JSON.parse(xhr.response));
-    };
-    xhr.send(form);
-
-    /*process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-    let res = await fetch("https://api.bayfiles.com/upload", {
-      method: 'POST',
-      headers: form.getHeaders(),
-      body: form
-    });
-
-    if (!res.ok && res.status !== 400) {
-      console.log("hmm");
-    } else {
-      const { status, error, data } = await res.json()
-      console.log(data);
-    }*/
+    }).then(data => {
+      document.getElementById("progress").setAttribute("style", "visibility: hidden;");
+      document.getElementById("linkafterupload").setAttribute("style", "visibility: visible;");
+      document.getElementById("linkafterupload").setAttribute("value", data.data.data.file.url.short);
+      url = data.data.data.file.url.short;
+      isuploading = false;
+    })
   });
   $("#linkafterupload").click(function() {
     console.log('click');
