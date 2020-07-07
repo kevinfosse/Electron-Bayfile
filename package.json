@@ -22,7 +22,7 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "electron": "^4.1.4",
+    "electron": "^9.1.0",
     "electron-builder": "^20.40.2"
   }
 }
